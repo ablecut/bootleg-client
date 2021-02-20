@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import Router from './config/router';
 
 import './index.css';
 
 ReactDOM.render(
-  <h1>Setup</h1>
+  <Router/>
   ,document.getElementById('root')
 );
 

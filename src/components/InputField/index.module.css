@@ -1,0 +1,17 @@
+.labelClassName {
+  color: var(--primary-teal);
+  font-weight: 400;
+  padding: 0.25rem;
+}
+
+.input {
+  width: 100%;
+  border-radius: 5px;
+  padding: 10px;
+  border: 3px solid var(--secondary-teal);
+}
+
+.input:focus {
+  outline: none;
+  border: 3px solid var(--primary-teal);
+}

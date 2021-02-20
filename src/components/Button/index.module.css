@@ -1,0 +1,19 @@
+.buttonClassName {
+  width: 100%;
+  padding: 10px;
+  background: var(--primary-purple);
+  color: white;
+  font-weight: 400;
+  letter-spacing: 1px;
+  outline: none;
+  border: none;
+}
+
+.buttonClassName:hover {
+  cursor: pointer;
+}
+
+.buttonClassName:disabled {
+  background: var(--disabled-grey);
+  color: black;
+}
