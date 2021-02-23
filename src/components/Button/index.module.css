@@ -7,10 +7,12 @@
   letter-spacing: 1px;
   outline: none;
   border: none;
+  border-radius: 5px;
 }
 
 .buttonClassName:hover {
   cursor: pointer;
+  background: var(--primary-purple-focus);
 }
 
 .buttonClassName:disabled {

@@ -1,0 +1,22 @@
+.container {
+  background: var(--light-grey);
+  padding: 1.25rem;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity ease-in-out 150ms;
+}
+
+.container:hover {
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+.title {
+  color: var(--primary-purple);
+  font-size: 2rem;
+  font-weight: 600;
+  margin-top: 2rem;
+}
