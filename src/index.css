@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Oxygen&display=swap');
 
 :root {
-  --primary-black: #252525;
+  --primary-black: #202020;
+  --primary-grey: #252525;
   --primary-purple: #6930C3;
-  --primary-purple-focus: #8755D5;
+  --secondary-purple: #8755D5;
   --primary-teal: #64DFDF;
   --secondary-teal: #80FFDB;
-  --light-grey: #F4F9F9;
   --disabled-grey: #DDDDDD;
 }
 

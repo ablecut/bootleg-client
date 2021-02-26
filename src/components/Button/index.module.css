@@ -12,7 +12,7 @@
 
 .buttonClassName:hover {
   cursor: pointer;
-  background: var(--primary-purple-focus);
+  background: var(--secondary-purple);
 }
 
 .buttonClassName:disabled {

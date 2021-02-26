@@ -10,7 +10,7 @@
 .formContainer {
   min-height: 80vh;
   width: 400px;
-  background:  var(--light-grey);
+  background:  var(--primary-grey);
   border-radius: 30px;
   padding: 1.5rem;
 }
