@@ -8,11 +8,15 @@
 }
 
 .formContainer {
-  min-height: 80vh;
+  min-height: 65vh;
   width: 400px;
   background:  var(--primary-grey);
   border-radius: 30px;
   padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .titleContainer {
@@ -31,15 +35,10 @@
 
 .form {
   width: 100%;
-  margin-top: 5rem;
 }
 
 .inputContainerClass {
   margin-top: 1.5rem;
-}
-
-.buttonClass {
-  margin-top: 4rem;
 }
 
 @media (max-width: 1000px) {

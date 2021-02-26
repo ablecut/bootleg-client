@@ -14,8 +14,7 @@ import {
   titleContainer,
   title,
   form,
-  inputContainerClass,
-  buttonClass
+  inputContainerClass
 } from './index.module.css';
 
 const Login = () => {
@@ -84,14 +83,12 @@ const Login = () => {
 
               containerClass={inputContainerClass}
             />
-            <Button 
+          </div>
+          <Button 
               label='Submit'
 
               onClick={onSubmitClick}
-
-              buttonClass={buttonClass}
-            />
-          </div>
+          />
         </div>
       </div>
     )
