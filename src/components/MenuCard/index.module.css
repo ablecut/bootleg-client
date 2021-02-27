@@ -6,7 +6,19 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: opacity ease-in-out 150ms;
+  transition: opacity ease-in-out 80ms;
+  animation-name: fade-in;
+  animation-duration: 500ms;
+  animation-timing-function: linear;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .container:hover {
