@@ -10,13 +10,21 @@ const MenuCard = (props) => {
     icon,
     title,
 
+    onCardClick,
+
     containerClass,
     iconContainerClass,
     titleClass
   } = props;
 
+  const _onCardClick = () => {
+    if (typeof onCardClick === 'function') {
+      onCardClick();
+    }
+  }
+
   return(
-    <div className={clsx(classes.container, containerClass)}>
+    <div onClick={_onCardClick} className={clsx(classes.container, containerClass)}>
       <div className={clsx(classes.iconContainer, iconContainerClass)}>
         {icon}
       </div>
@@ -27,7 +35,13 @@ const MenuCard = (props) => {
 
 MenuCard.propTypes = {
   icon: PropTypes.element,
-  title: PropTypes.string
+  title: PropTypes.string,
+
+  onCardClick: PropTypes.string,
+
+  containerClass: PropTypes.string,
+  iconContainerClass: PropTypes.string,
+  titleClass: PropTypes.string
 }
 
 export default MenuCard;

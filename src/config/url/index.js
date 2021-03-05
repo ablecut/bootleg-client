@@ -5,6 +5,7 @@ if (window.location.origin === 'XXX') {
   baseUrl = 'XXX';
 }
 
-export const loginUrls = {
-  login: '/login'
+export const authUrls = {
+  login: '/login',
+  logout: '/logout'
 }

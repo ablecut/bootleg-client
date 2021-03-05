@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { Redirect } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
@@ -24,7 +23,7 @@ const Login = (props) => {
   const [password, setPassword] = useState('');
 
   const isLoading = useSelector((state) => {
-    return state.Auth.login.loading;
+    return state.auth.login.loading;
   });
 
   const dispatch = useDispatch();
@@ -54,7 +53,7 @@ const Login = (props) => {
   }
 
   const successCallback = () => {
-    props.history.push('/');
+    window.location.href = '/';
   }
 
   const renderForm = () => {
@@ -109,4 +108,4 @@ const Login = (props) => {
   );
 }
 
-export default withRouter(Login);
+export default Login;

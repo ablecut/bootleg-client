@@ -1,5 +1,5 @@
 import { api } from '../../../../config/api';
-import { loginUrls } from '../../../../config/url';
+import { authUrls } from '../../../../config/url';
 import {
   loginPending,
   loginSuccess,
@@ -16,7 +16,7 @@ export const loginAction = (payload, errorCallback, successCallback) => {
 
       dispatch(loginPending());
 
-      const response = await api.post(loginUrls.login, requestData);
+      const response = await api.post(authUrls.login, requestData);
 
       dispatch(loginSuccess({
         username:response.data.username
