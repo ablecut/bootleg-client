@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+import Cookies from 'js-cookie';
 
 const initialState = {
+  username: Cookies.get('username'),
   loading: false,
   error: false
 };
@@ -14,7 +16,9 @@ export const loginSlice = createSlice({
       state.error = false;
     },
 
-    loginSuccess: (state) => {
+    loginSuccess: (state, { payload }) => {
+      const { username } = payload;
+      state.username = username;
       state.loading = false;
       state.error = false;
     },

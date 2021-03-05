@@ -2,8 +2,8 @@ import { combineReducers } from '@reduxjs/toolkit';
 
 import loginSlice from './slices/loginSlice';
 
-const loginReducer = combineReducers({
+const Auth = combineReducers({
   login: loginSlice
 });
 
-export default loginReducer;
+export default Auth;

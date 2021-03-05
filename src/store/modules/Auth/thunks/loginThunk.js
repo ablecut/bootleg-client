@@ -6,7 +6,7 @@ import {
   loginFailure
 } from '../slices/loginSlice';
 
-export const loginAction = (payload, errorCallback) => {
+export const loginAction = (payload, errorCallback, successCallback) => {
   return async (dispatch) => {
     try{
       const requestData = {
@@ -15,9 +15,14 @@ export const loginAction = (payload, errorCallback) => {
       }
 
       dispatch(loginPending());
-      await api.post(loginUrls.login, requestData);
-      dispatch(loginSuccess());
-      
+
+      const response = await api.post(loginUrls.login, requestData);
+
+      dispatch(loginSuccess({
+        username:response.data.username
+      }));
+
+      successCallback();
     }
     catch(err) {
       const errorMessage = err.response.data.error;

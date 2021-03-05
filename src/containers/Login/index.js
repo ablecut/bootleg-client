@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { Redirect } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
 import InputField from '../../components/InputField';
 import Button from '../../components/Button';
-import { loginAction } from '../../store/modules/Login/thunks/loginThunk';
+import { loginAction } from '../../store/modules/Auth/thunks/loginThunk';
 
 import { 
   container, 
@@ -17,10 +18,14 @@ import {
   inputContainerClass
 } from './index.module.css';
 
-const Login = () => {
+const Login = (props) => {
 
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+
+  const isLoading = useSelector((state) => {
+    return state.Auth.login.loading;
+  });
 
   const dispatch = useDispatch();
 
@@ -41,11 +46,15 @@ const Login = () => {
     dispatch(loginAction({
       username: userName,
       password
-    }, displayLoginError));
+    }, displayLoginError, successCallback));
   }
 
   const displayLoginError = (errorMessage) => {
     toast.error(errorMessage);
+  }
+
+  const successCallback = () => {
+    props.history.push('/');
   }
 
   const renderForm = () => {
@@ -86,6 +95,7 @@ const Login = () => {
           </div>
           <Button 
               label='Submit'
+              disabled={isLoading}
 
               onClick={onSubmitClick}
           />
@@ -99,4 +109,4 @@ const Login = () => {
   );
 }
 
-export default Login;
+export default withRouter(Login);
