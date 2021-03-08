@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import Router from './config/router';
 import store from './store';
-import ErrorBoundary from './pages/ErrorBoundary';
+import ErrorBoundary from './components/ErrorBoundary';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
