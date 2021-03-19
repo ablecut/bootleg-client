@@ -1,12 +1,13 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 import SuspenseLoader from '../../components/SuspenseLoader';
 import MenuCard from '../../components/MenuCard';
 import logoutIcon from '../../assets/svgs/logout.svg';
 import searchIcon from '../../assets/svgs/search.svg';
 import { logoutAction } from '../../store/modules/Auth/thunks/logoutThunk';
+import { displayErrorToast } from '../../utils';
 
 import classes from './index.module.css';
 
@@ -24,12 +25,8 @@ const Home = (props) => {
     window.location.href = '/';
   }
 
-  const displayFailureToast = (errorMessage) => {
-    toast.error(errorMessage);
-  }
-
   const onLogoutCardClick = () => {
-    dispatch(logoutAction(displayFailureToast, logoutSuccessCallback));
+    dispatch(logoutAction(displayErrorToast, logoutSuccessCallback));
   }
 
   const renderContent = () => {
@@ -50,6 +47,7 @@ const Home = (props) => {
           <MenuCard 
             title='Logout'
             icon={logout}
+            to=''
   
             onCardClick={onLogoutCardClick}
           />

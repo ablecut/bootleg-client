@@ -1,5 +1,6 @@
 import { api } from '../../../../config/api';
 import { searchUrls } from '../../../../config/url';
+import { thunkErrorHandler } from '../../../../utils';
 import {
   fetchSearchResultsPending,
   fetchSearchResultsSuccess,
@@ -20,9 +21,7 @@ export const fetchSearchResults = (payload, errorCallback) => {
       }));
     }
     catch(err) {
-      const errorMessage = err?.response?.data?.error;
-      errorCallback(errorMessage || 'Some Error Occured');
-      dispatch(fetchSearchResultsFailure());
+      thunkErrorHandler(err, dispatch, errorCallback, fetchSearchResultsFailure);
     }
   }
 }

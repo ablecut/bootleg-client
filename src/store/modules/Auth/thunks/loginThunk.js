@@ -5,6 +5,7 @@ import {
   loginSuccess,
   loginFailure
 } from '../slices/loginSlice';
+import { thunkErrorHandler } from '../../../../utils';
 
 export const loginAction = (payload, errorCallback, successCallback) => {
   return async (dispatch) => {
@@ -25,9 +26,7 @@ export const loginAction = (payload, errorCallback, successCallback) => {
       successCallback();
     }
     catch(err) {
-      const errorMessage = err.response.data.error;
-      errorCallback(errorMessage);
-      dispatch(loginFailure());
+      thunkErrorHandler(err, dispatch, errorCallback, loginFailure);
     }
   }
 }

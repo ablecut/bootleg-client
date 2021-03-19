@@ -1,9 +1,11 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 
 import SearchField from './components/SearchField';
 import { setSearchQuery, clearSearchResults } from '../../store/modules/Search/slices/search';
 import { fetchSearchResults } from '../../store/modules/Search/thunks/searchThunk';
+import { displayErrorToast } from '../../utils';
 
 const Search = () => {
 
@@ -12,11 +14,6 @@ const Search = () => {
   });
 
   const dispatch = useDispatch();
-
-  const errorCallback = (errorMessage) => {
-    //TODO: Replace with toast util
-    console.log(errorMessage);
-  }
 
   const handleClearButtonClick = () => {
     dispatch(setSearchQuery({
@@ -40,11 +37,15 @@ const Search = () => {
 
     dispatch(fetchSearchResults({
       searchQuery: newSearchQuery
-    },errorCallback))
+    },displayErrorToast))
   }
 
   return (
     <div>
+      <ToastContainer
+        autoClose={2000}
+        pauseOnHover={false}
+      />
       <SearchField 
         initialValue={searchQuery}
 

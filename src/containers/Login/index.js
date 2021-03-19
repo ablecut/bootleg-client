@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import InputField from '../../components/InputField';
 import Button from '../../components/Button';
 import { loginAction } from '../../store/modules/Auth/thunks/loginThunk';
+import { displayErrorToast } from '../../utils';
 
 import { 
   container, 
@@ -45,11 +46,7 @@ const Login = (props) => {
     dispatch(loginAction({
       username: userName,
       password
-    }, displayLoginError, successCallback));
-  }
-
-  const displayLoginError = (errorMessage) => {
-    toast.error(errorMessage);
+    }, displayErrorToast, successCallback));
   }
 
   const successCallback = () => {

@@ -50,7 +50,7 @@ MenuCard.propTypes = {
   to: PropTypes.string,
   preventDefault: PropTypes.bool,
 
-  onCardClick: PropTypes.string,
+  onCardClick: PropTypes.func,
 
   containerClass: PropTypes.string,
   iconContainerClass: PropTypes.string,
