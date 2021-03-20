@@ -3,14 +3,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 
 import SearchField from './components/SearchField';
+import SearchResults from './components/SearchResults';
 import { setSearchQuery, clearSearchResults } from '../../store/modules/Search/slices/search';
 import { fetchSearchResults } from '../../store/modules/Search/thunks/searchThunk';
 import { displayErrorToast } from '../../utils';
 
 const Search = () => {
 
-  const searchQuery = useSelector((state) => {
-    return state.search.searchQuery;
+  const { searchQuery, searchResults, loading }= useSelector((state) => {
+    return state.search;
   });
 
   const dispatch = useDispatch();
@@ -51,6 +52,10 @@ const Search = () => {
 
         handleClearButtonClick={handleClearButtonClick}
         handleSearchButtonClick={handleSearchButtonClick}
+      />
+      <SearchResults 
+        loading={loading}
+        searchResults={searchResults}
       />
     </div>
   );
