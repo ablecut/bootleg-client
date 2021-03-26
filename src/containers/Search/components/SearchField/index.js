@@ -21,7 +21,9 @@ const SearchField = (props) => {
     setValue(e.target.value);
   }
 
-  const onClearButtonClick = () => {
+  const onClearButtonClick = (e) => {
+    e.preventDefault();
+
     if (typeof handleClearButtonClick === 'function') {
       handleClearButtonClick();
     }
@@ -29,39 +31,44 @@ const SearchField = (props) => {
     setValue('');
   }
 
-  const onSearchButtonClick = () => {
+  const onSearchButtonClick = (e) => {
+    e.preventDefault();
+
     if (typeof handleSearchButtonClick === 'function') {
       handleSearchButtonClick(value);
     }
   }
 
   return (
-    <div className={classes.container}>
-      <InputField 
-        value={value}
-        placeholder='Search'
+    <form>
+      <div className={classes.container}>
+        <InputField 
+          value={value}
+          placeholder='Search'
 
-        onChange={onSearchValueChange}
+          onChange={onSearchValueChange}
 
-        containerClass={classes.inputContainer} 
-      />
-      <div className={classes.buttonsContainer}>
-        <Button 
-          label='Search' 
-
-          onClick={onSearchButtonClick}
-          
-          buttonClass={classes.searchButton} 
-      />
-        <Button 
-          label='Clear' 
-
-          onClick={onClearButtonClick}
-          
-          buttonClass={classes.clearButton} 
+          containerClass={classes.inputContainer} 
         />
+        <div className={classes.buttonsContainer}>
+          <Button 
+            type='submit'
+            label='Search' 
+
+            onClick={onSearchButtonClick}
+            
+            buttonClass={classes.searchButton} 
+        />
+          <Button 
+            label='Clear' 
+
+            onClick={onClearButtonClick}
+            
+            buttonClass={classes.clearButton} 
+          />
+        </div>
       </div>
-    </div>
+    </form>
   );
 }
 

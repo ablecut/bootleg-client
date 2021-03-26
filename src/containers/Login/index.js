@@ -37,7 +37,9 @@ const Login = (props) => {
     setPassword(e.target.value);
   }
 
-  const onSubmitClick = () => {
+  const onSubmitClick = (e) => {
+    e.preventDefault();
+
     if (userName.length === 0 || password.length === 0) {
       toast.error('UserName and Password Cannot be Empty');
       return;
@@ -65,7 +67,7 @@ const Login = (props) => {
           autoClose={2000}
           pauseOnHover={false}
         />
-        <div className={formContainer}>
+        <form className={formContainer}>
           <div className={titleContainer}>
             <h1 className={title}>bootleg</h1>
           </div>
@@ -90,12 +92,13 @@ const Login = (props) => {
             />
           </div>
           <Button 
+              type='submit'
               label='Submit'
               disabled={isLoading}
 
               onClick={onSubmitClick}
           />
-        </div>
+        </form>
       </div>
     )
   }
