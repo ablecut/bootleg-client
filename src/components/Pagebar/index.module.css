@@ -1,6 +1,10 @@
 .wrapper {
   width: 100%;
   background: var(--primary-grey);
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 10;
 }
 
 .container {

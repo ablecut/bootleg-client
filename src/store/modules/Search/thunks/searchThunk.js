@@ -4,7 +4,10 @@ import { thunkErrorHandler } from '../../../../utils';
 import {
   fetchSearchResultsPending,
   fetchSearchResultsSuccess,
-  fetchSearchResultsFailure
+  fetchSearchResultsFailure,
+  fetchMorePending,
+  fetchMoreSuccess,
+  fetchMoreFailure
 } from '../slices/search';
 
 export const fetchSearchResults = (payload, errorCallback) => {
@@ -22,6 +25,25 @@ export const fetchSearchResults = (payload, errorCallback) => {
     }
     catch(err) {
       thunkErrorHandler(err, dispatch, errorCallback, fetchSearchResultsFailure);
+    }
+  }
+}
+
+export const fetchMore = (payload, errorCallback) => {
+  return async (dispatch) => {
+    try{
+      dispatch(fetchMorePending());
+
+      const searchUrl = `${searchUrls.fetchSearchResults}?searchQuery=${payload.searchQuery}&pageToken=${payload.nextPageToken}`;
+      const response = await api.get(searchUrl);
+
+      dispatch(fetchMoreSuccess({
+        searchResults: response.data.searchData,
+        nextPageToken: response.data.nextPageToken
+      }));
+    }
+    catch(err) {
+      thunkErrorHandler(err, dispatch, errorCallback, fetchMoreFailure);
     }
   }
 }

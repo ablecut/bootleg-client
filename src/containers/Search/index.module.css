@@ -1,0 +1,21 @@
+.container {
+  margin-bottom: 1rem;
+}
+
+.button {
+  width: 7rem;
+  background: var(--primary-grey);
+  border: 1px solid var(--primary-purple);
+  color: var(--secondary-purple);
+  font-weight: 600;
+}
+
+.button:hover {
+  background: var(--primary-purple-transparent);
+}
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

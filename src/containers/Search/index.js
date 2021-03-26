@@ -1,16 +1,20 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
+import { SyncLoader } from 'react-spinners';
 
 import SearchField from './components/SearchField';
 import SearchResults from './components/SearchResults';
+import Button from '../../components/Button';
 import { setSearchQuery, clearSearchResults } from '../../store/modules/Search/slices/search';
-import { fetchSearchResults } from '../../store/modules/Search/thunks/searchThunk';
+import { fetchSearchResults, fetchMore } from '../../store/modules/Search/thunks/searchThunk';
 import { displayErrorToast } from '../../utils';
+
+import classes from './index.module.css';
 
 const Search = () => {
 
-  const { searchQuery, searchResults, loading }= useSelector((state) => {
+  const { searchQuery, searchResults, loading, nextPageToken, loadingMore }= useSelector((state) => {
     return state.search;
   });
 
@@ -41,8 +45,40 @@ const Search = () => {
     },displayErrorToast))
   }
 
+  const onLoadMoreClick = () => {
+    dispatch(fetchMore({
+      searchQuery,
+      nextPageToken
+    }))
+  }
+
+  const renderLoadMoreButton = () => {
+
+    if (loading || searchResults.length === 0) return null;
+
+    if (loadingMore) {
+      return (
+        <div className={classes.buttonContainer}>
+          <SyncLoader color='#6930C3' size={12} />
+        </div>
+      );
+    }
+
+    return (
+      <div className={classes.buttonContainer}>
+        <Button 
+          label='Load More'
+
+          onClick={onLoadMoreClick}
+
+          buttonClass={classes.button}
+        />
+      </div>
+    );
+  }
+
   return (
-    <div>
+    <div className={classes.container}>
       <ToastContainer
         autoClose={2000}
         pauseOnHover={false}
@@ -57,6 +93,7 @@ const Search = () => {
         loading={loading}
         searchResults={searchResults}
       />
+      {renderLoadMoreButton()}
     </div>
   );
 }

@@ -5,7 +5,9 @@ const initialState = {
   searchResults: [],
   nextPageToken: '',
   loading: false,
-  error: false
+  loadingMore: false,
+  error: false,
+  errorMore: false
 };
 
 const SearchSlice = createSlice({
@@ -29,9 +31,25 @@ const SearchSlice = createSlice({
       state.searchResults = payload.searchResults;
       state.nextPageToken = payload.nextPageToken
     },
-    fetchSearchResultsFailure: (state, action) => {
+    fetchSearchResultsFailure: (state) => {
       state.loading = false;
       state.error = true;
+    },
+    fetchMorePending: (state) => {
+      state.loadingMore = true;
+      state.errorMore = false;
+    },
+    fetchMoreSuccess: (state, action) => {
+      const { payload } = action;
+
+      state.loadingMore = false;
+      state.errorMore = false;
+      state.searchResults = [...state.searchResults, ...payload.searchResults];
+      state.nextPageToken = payload.nextPageToken
+    },
+    fetchMoreFailure: (state) => {
+      state.loadingMore = false;
+      state.errorMore = true;
     },
     clearSearchResults: (state) => {
       state.searchQuery = '';
@@ -46,6 +64,9 @@ export const {
   fetchSearchResultsPending,
   fetchSearchResultsSuccess,
   fetchSearchResultsFailure,
+  fetchMorePending,
+  fetchMoreSuccess,
+  fetchMoreFailure,
   clearSearchResults
 } = SearchSlice.actions;
 

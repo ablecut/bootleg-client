@@ -9,6 +9,7 @@
   --secondary-teal: #80FFDB;
   --disabled-grey: #DDDDDD;
   --error-red: #FF0134;
+  --primary-purple-transparent: rgba(105, 48, 195, 0.2);
 }
 
 * {
