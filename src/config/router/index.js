@@ -6,12 +6,14 @@ import Home from '../../pages/Home';
 import Login from '../../pages/Login';
 import NotFound from '../../components/NotFound';
 import SuspenseLoader from '../../components/SuspenseLoader';
+import Pagebar from '../../components/Pagebar';
 
 const Search = lazy(() => import('../../pages/Search'));
 
 const Router = () => {
   return(
     <BrowserRouter>
+      <Pagebar />
       <Suspense fallback={<SuspenseLoader />}>
         <Switch>
           <PrivateRoute path='/' component={Home} exact />
