@@ -4,6 +4,7 @@ import clsx from 'clsx';
 
 import BlockShimmer from '../BlockShimmer';
 import playIcon from '../../assets/svgs/play.svg';
+import addIcon from '../../assets/svgs/add.svg';
 
 import classes from './index.module.css';
 
@@ -16,6 +17,7 @@ const MediaCard = (props) => {
     channelName,
 
     onPlayClick,
+    onAddClick,
 
     containerClass,
     thumbnailSectionClass,
@@ -48,6 +50,12 @@ const MediaCard = (props) => {
     }
   }
 
+  const onAddIconClick = () => {
+    if (typeof onAddClick === 'function') {
+      onAddClick();
+    }
+  }
+
   return (
     <div className={clsx(classes.container, containerClass)}>
       <div className={clsx(classes.thumbnailSection, thumbnailSectionClass)}>
@@ -72,9 +80,19 @@ const MediaCard = (props) => {
         <div className={clsx(classes.actionSection, actionSectionClass)}>
           <img 
             src={playIcon} 
-            alt='playIcon' 
+            alt='playIcon'
+            title='Play' 
 
             onClick={onPlayIconClick}
+
+            className={clsx(classes.playIcon, playIconClass)} 
+          />
+          <img 
+            src={addIcon} 
+            alt='addIcon'
+            title='Add to Queue' 
+
+            onClick={onAddIconClick}
 
             className={clsx(classes.playIcon, playIconClass)} 
           />
@@ -91,6 +109,7 @@ MediaCard.propTypes = {
   channelName: PropTypes.string.isRequired,
 
   onPlayClick: PropTypes.func,
+  onAddClick: PropTypes.func,
 
   containerClass: PropTypes.string,
   thumbnailSectionClass: PropTypes.string,
