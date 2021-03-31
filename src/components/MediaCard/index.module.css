@@ -62,7 +62,7 @@
   height: 30px;
   width: 30px;
   cursor: pointer;
-  padding: 1rem 1rem;
+  margin-right: 0.55rem;
 }
 
 .playIcon:hover {

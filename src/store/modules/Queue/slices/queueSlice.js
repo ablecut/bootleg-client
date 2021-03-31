@@ -21,8 +21,21 @@ const queueSlice = createSlice({
       state.queue.splice(state.currentIndex + 1, 0, payload.track);
       state.currentIndex = state.currentIndex + 1;
       state.currentSecond = 0;
+    },
+    setData: (state, action) => {
+      const { payload } = action;
+
+      state.queue = payload.queue;
+      state.currentIndex = payload.currentIndex;
+      state.currentSecond = payload.currentSecond;
     }
   }
 })
+
+export const {
+  addToQueue,
+  play,
+  setData
+} = queueSlice.actions;
 
 export default queueSlice.reducer;

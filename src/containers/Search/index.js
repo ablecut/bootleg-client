@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import { SyncLoader } from 'react-spinners';
@@ -8,6 +8,7 @@ import SearchResults from './components/SearchResults';
 import Button from '../../components/Button';
 import { setSearchQuery, clearSearchResults } from '../../store/modules/Search/slices/search';
 import { fetchSearchResults, fetchMore } from '../../store/modules/Search/thunks/searchThunk';
+import { setInitialData } from '../../store/modules/Queue/thunks/queueThunk';
 import { displayErrorToast } from '../../utils';
 
 import classes from './index.module.css';
@@ -18,7 +19,21 @@ const Search = () => {
     return state.search;
   });
 
+  const { queue } = useSelector((state) => {
+    return state.queue
+  })
+
+  const { username } = useSelector((state) => {
+    return state.auth.login
+  })
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (queue.length === 0) {
+      dispatch(setInitialData(username));
+    }
+  }, [dispatch, queue.length, username])
 
   const handleClearButtonClick = () => {
     dispatch(setSearchQuery({
@@ -92,6 +107,7 @@ const Search = () => {
       <SearchResults 
         loading={loading}
         searchResults={searchResults}
+        username={username}
       />
       {renderLoadMoreButton()}
     </div>

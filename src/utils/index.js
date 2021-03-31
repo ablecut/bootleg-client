@@ -4,6 +4,10 @@ export const displayErrorToast = (errorMessage) => {
   toast.error(errorMessage);
 }
 
+export const displaySuccessToast = (successMessage) => {
+  toast.success(successMessage);
+}
+
 export const thunkErrorHandler = (err, dispatch, errorCallback, failureAction) => {
   const errorMessage = err?.response?.data?.error;
   errorCallback(errorMessage || 'Some Error Occured');

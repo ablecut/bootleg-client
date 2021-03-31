@@ -1,14 +1,30 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import MediaCard from '../../../../components/MediaCard';
 import BlockShimmer from '../../../../components/BlockShimmer';
+import { addTrackToQueue, playTrack } from '../../../../store/modules/Queue/thunks/queueThunk';
 
 import classes from './index.module.css';
 
 const SearchResults = (props) => {
 
-  const { loading, searchResults } = props;
+  const { loading, searchResults, username } = props;
+
+  const dispatch = useDispatch();
+
+  const onAddToQueueClick = (track) => {
+    return () => {
+      dispatch(addTrackToQueue(username, track));
+    }
+  }
+
+  const onPlayClick = (track) => {
+    return () => {
+      dispatch(playTrack(username, track));
+    }
+  }
 
   const renderSearchResults = () => {
     if (loading) {
@@ -30,6 +46,9 @@ const SearchResults = (props) => {
           channelName={item.channelName}
           key={index}
 
+          onAddClick={onAddToQueueClick(item)}
+          onPlayClick={onPlayClick(item)}
+
           containerClass={classes.mediaContainerClass}
         />
       );
@@ -45,7 +64,8 @@ const SearchResults = (props) => {
 
 SearchResults.propTypes = {
   loading: PropTypes.bool.isRequired,
-  searchResults: PropTypes.array.isRequired
+  searchResults: PropTypes.array.isRequired,
+  username: PropTypes.string.isRequired
 }
 
 export default SearchResults;
