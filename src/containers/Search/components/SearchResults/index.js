@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import MediaCard from '../../../../components/MediaCard';
 import BlockShimmer from '../../../../components/BlockShimmer';
 import { addTrackToQueue, playTrack } from '../../../../store/modules/Queue/thunks/queueThunk';
+import { formatDuration } from '../../../../utils';
 
 import classes from './index.module.css';
 
@@ -43,7 +44,7 @@ const SearchResults = (props) => {
           url={item.url}
           thumbnail={item.thumbnail}
           title={item.title}
-          channelName={item.channelName}
+          duration={formatDuration(item.duration)}
           key={index}
 
           onAddClick={onAddToQueueClick(item)}

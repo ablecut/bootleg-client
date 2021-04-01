@@ -14,7 +14,7 @@ const MediaCard = (props) => {
     url,
     thumbnail,
     title,
-    channelName,
+    duration,
 
     onPlayClick,
     onAddClick,
@@ -25,7 +25,7 @@ const MediaCard = (props) => {
     shimmerBlockClass,
     thumbnailClass,
     titleClass,
-    channelNameClass,
+    durationClass,
     actionSectionClass,
     playIconClass
   } = props;
@@ -74,8 +74,8 @@ const MediaCard = (props) => {
         <div title={title} className={clsx(classes.title, titleClass)}>
           {title}
         </div>
-        <div title={channelName} className={clsx(classes.channelName, channelNameClass)}>
-          {channelName}
+        <div title={duration} className={clsx(classes.duration, durationClass)}>
+          {duration}
         </div>
         <div className={clsx(classes.actionSection, actionSectionClass)}>
           <img 
@@ -106,7 +106,7 @@ MediaCard.propTypes = {
   url: PropTypes.string.isRequired,
   thumbnail: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  channelName: PropTypes.string.isRequired,
+  duration: PropTypes.string.isRequired,
 
   onPlayClick: PropTypes.func,
   onAddClick: PropTypes.func,
@@ -117,7 +117,7 @@ MediaCard.propTypes = {
   shimmerBlockClass: PropTypes.string,
   thumbnailClass: PropTypes.string,
   titleClass: PropTypes.string,
-  channelNameClass: PropTypes.string,
+  durationClass: PropTypes.string,
   actionSectionClass: PropTypes.string,
   playIconClass: PropTypes.string
 }

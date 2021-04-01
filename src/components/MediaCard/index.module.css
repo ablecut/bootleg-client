@@ -36,14 +36,10 @@
   overflow: hidden;
 }
 
-.channelName {
+.duration {
   margin-top: 0.25rem;
   letter-spacing: 1px;
   font-weight: lighter;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;  
-  overflow: hidden;
 }
 
 .infoSection {

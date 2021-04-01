@@ -9,6 +9,7 @@ import SuspenseLoader from '../../components/SuspenseLoader';
 import Pagebar from '../../components/Pagebar';
 
 const Search = lazy(() => import('../../pages/Search'));
+const Queue = lazy(() => import('../../containers/Queue'));
 
 const Router = () => {
   return(
@@ -19,6 +20,7 @@ const Router = () => {
           <PrivateRoute path='/' component={Home} exact />
           <Route path='/login' component={Login} exact />
           <PrivateRoute path='/search' component={Search} exact />
+          <PrivateRoute path='/queue' component={Queue} exact />
           <Route path='*' component={NotFound} />
         </Switch>
       </Suspense>

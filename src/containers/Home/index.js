@@ -6,6 +6,7 @@ import SuspenseLoader from '../../components/SuspenseLoader';
 import MenuCard from '../../components/MenuCard';
 import logoutIcon from '../../assets/svgs/logout.svg';
 import searchIcon from '../../assets/svgs/search.svg';
+import queueIcon from '../../assets/svgs/queue.svg';
 import { logoutAction } from '../../store/modules/Auth/thunks/logoutThunk';
 import { displayErrorToast } from '../../utils';
 
@@ -14,6 +15,7 @@ import classes from './index.module.css';
 const Home = (props) => {
   const logout = <img src={logoutIcon} height='80px' width='80px' alt='logoutIcon'/>;
   const search = <img src={searchIcon} height='80px' width='80px' alt='searchIcon'/>;
+  const queue = <img src={queueIcon} height='80px' width='80px' alt='queueIcon'/>
 
   const dispatch = useDispatch();
 
@@ -44,6 +46,11 @@ const Home = (props) => {
             icon={search}
             to='/search'
           />
+          <MenuCard 
+              title='Queue'
+              icon={queue}
+              to='/queue'
+            />
           <MenuCard 
             title='Logout'
             icon={logout}
