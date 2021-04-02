@@ -18,8 +18,9 @@ const queueSlice = createSlice({
     play: (state, action) => {
       const { payload } = action;
 
+      const newIndex = state.queue.length === 0 ? 0 : state.currentIndex + 1;
       state.queue.splice(state.currentIndex + 1, 0, payload.track);
-      state.currentIndex = state.currentIndex + 1;
+      state.currentIndex = newIndex;
       state.currentSecond = 0;
     },
     setData: (state, action) => {
@@ -28,6 +29,21 @@ const queueSlice = createSlice({
       state.queue = payload.queue;
       state.currentIndex = payload.currentIndex;
       state.currentSecond = payload.currentSecond;
+    },
+    setCurrentActive: (state, action) => {
+      const { payload } = action;
+
+      state.currentIndex = payload.currentIndex;
+      state.currentSecond = 0;
+    },
+    removeFromQueue: (state, action) => {
+      const { payload } = action;
+
+      state.queue.splice(payload.removeIndex, 1);
+      state.currentSecond = 0;
+      if (payload.removeIndex < state.currentIndex) {
+        state.currentIndex = state.currentIndex - 1;
+      }
     }
   }
 })
@@ -35,7 +51,9 @@ const queueSlice = createSlice({
 export const {
   addToQueue,
   play,
-  setData
+  setData,
+  setCurrentActive,
+  removeFromQueue
 } = queueSlice.actions;
 
 export default queueSlice.reducer;

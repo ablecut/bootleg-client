@@ -3,3 +3,37 @@
   margin: auto;
   padding: 1.5rem;
 }
+
+.trackContainer {
+  padding: 1rem 0px;
+}
+
+.emptyContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  padding: 1rem;
+}
+
+.searchIcon {
+  height: 5rem;
+  width: 5rem;
+  margin-bottom: 1rem;
+}
+
+.emptyText {
+  font-size: 2rem;
+  color: var(--secondary-purple);
+  text-align: center;
+}
+
+.here {
+  color: var(--primary-teal);
+  text-decoration: none;
+}

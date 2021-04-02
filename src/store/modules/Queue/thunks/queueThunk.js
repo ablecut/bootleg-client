@@ -1,4 +1,4 @@
-import { setData, addToQueue, play } from '../slices/queueSlice';
+import { setData, addToQueue, play, setCurrentActive, removeFromQueue } from '../slices/queueSlice';
 import { get, set } from 'idb-keyval';
 import { displayErrorToast, displaySuccessToast } from '../../../../utils';
 
@@ -60,7 +60,7 @@ export const playTrack = (username, track) => {
       newQueue.splice(queueData.currentIndex + 1, 0, track);
 
       const newQueueData = {
-        currentIndex: queueData.currentIndex + 1,
+        currentIndex: queueData.queue.length === 0 ? 0 : queueData.currentIndex + 1,
         currentSecond: 0,
         queue: newQueue
       };
@@ -70,6 +70,59 @@ export const playTrack = (username, track) => {
       dispatch(play({
         track
       }));
+    }
+    catch(e) {
+      displayErrorToast('Some Error Occured');
+    }
+  }
+}
+
+export const setCurrentActiveTrack = (username, currentIndex) => {
+  return async (dispatch) => {
+    try {
+      const queueData = await get(`${username}_queueData`);
+
+      await set(`${username}_queueData`, {
+        ...queueData,
+        currentIndex
+      });
+
+      dispatch(setCurrentActive({
+        currentIndex
+      }))
+    }
+    catch(e) {
+      displayErrorToast('Some Error Occured');
+    }
+  }
+}
+
+export const removeTrackFromQueue = (username, removeIndex) => {
+  return async (dispatch) => {
+    try {
+      const queueData = await get(`${username}_queueData`);
+
+      const newQueue = [...queueData.queue];
+
+      newQueue.splice(removeIndex, 1);
+
+      let currentIndex = queueData.currentIndex;
+
+      if (removeIndex < queueData.currentIndex) {
+        currentIndex = currentIndex - 1;
+      }
+
+      const newQueueData = {
+        currentIndex: currentIndex,
+        currentSecond: 0,
+        queue: newQueue
+      };
+
+      await set(`${username}_queueData`, newQueueData);
+
+      dispatch(removeFromQueue({
+        removeIndex
+      }))
     }
     catch(e) {
       displayErrorToast('Some Error Occured');

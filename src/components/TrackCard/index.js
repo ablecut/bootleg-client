@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
+import { formatDuration } from '../../utils';
 import removeIcon from '../../assets/svgs/remove.svg';
 import addToQueueIcon from '../../assets/svgs/add.svg';
 import playIcon from '../../assets/svgs/play.svg';
@@ -61,7 +62,7 @@ const TrackCard = (props) => {
     return (
       <div className={clsx(classes.infoContainer, infoContainerClass)}>
         <div className={clsx(classes.title, titleClass)}>{track.title}</div>
-        <div className={clsx(classes.duration, durationClass)}>{track.duration}</div>
+        <div className={clsx(classes.duration, durationClass)}>{formatDuration(track.duration)}</div>
       </div>
     );
   }
