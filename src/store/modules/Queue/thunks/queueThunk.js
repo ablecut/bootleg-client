@@ -102,13 +102,17 @@ export const removeTrackFromQueue = (username, removeIndex) => {
     try {
       const queueData = await get(`${username}_queueData`);
 
+      const currentQueueLength = queueData.queue.length;
+
       const newQueue = [...queueData.queue];
 
       newQueue.splice(removeIndex, 1);
 
       let currentIndex = queueData.currentIndex;
 
-      if (removeIndex < queueData.currentIndex) {
+      const secondCondition = removeIndex === currentQueueLength - 1 && removeIndex === queueData.currentIndex;
+
+      if (removeIndex < queueData.currentIndex || secondCondition) {
         currentIndex = currentIndex - 1;
       }
 

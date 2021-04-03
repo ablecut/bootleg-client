@@ -10,6 +10,7 @@ import Pagebar from '../../components/Pagebar';
 
 const Search = lazy(() => import('../../pages/Search'));
 const Queue = lazy(() => import('../../containers/Queue'));
+const Play = lazy(() => import('../../containers/Play'));
 
 const Router = () => {
   return(
@@ -21,6 +22,7 @@ const Router = () => {
           <Route path='/login' component={Login} exact />
           <PrivateRoute path='/search' component={Search} exact />
           <PrivateRoute path='/queue' component={Queue} exact />
+          <PrivateRoute path='/play' component={Play} exact />
           <Route path='*' component={NotFound} />
         </Switch>
       </Suspense>
