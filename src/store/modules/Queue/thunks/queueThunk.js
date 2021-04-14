@@ -112,7 +112,7 @@ export const removeTrackFromQueue = (username, removeIndex) => {
 
       const secondCondition = removeIndex === currentQueueLength - 1 && removeIndex === queueData.currentIndex;
 
-      if (removeIndex < queueData.currentIndex || secondCondition) {
+      if (removeIndex < queueData.currentIndex || (secondCondition && currentQueueLength!==1)) {
         currentIndex = currentIndex - 1;
       }
 

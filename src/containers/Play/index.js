@@ -1,30 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import Tile from './components/Tile';
-import { setInitialData } from '../../store/modules/Queue/thunks/queueThunk';
 import searchIcon from '../../assets/svgs/search.svg';
 
 import classes from './index.module.css';
 
 const Play = () => {
 
-  const { username } = useSelector((state) => {
-    return state.auth.login;  
-  });
-
   const { queue, currentIndex } = useSelector((state) => {
     return state.queue;
   })
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (queue.length === 0) {
-      dispatch(setInitialData(username));
-    }
-  }, [dispatch, queue.length, username]);
 
   const renderContent = () => {
     if (!queue || !queue?.length) {

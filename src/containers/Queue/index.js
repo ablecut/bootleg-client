@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import TrackCard from '../../components/TrackCard';
-import { setInitialData, setCurrentActiveTrack, removeTrackFromQueue } from '../../store/modules/Queue/thunks/queueThunk';
+import { setCurrentActiveTrack, removeTrackFromQueue } from '../../store/modules/Queue/thunks/queueThunk';
 import searchIcon from '../../assets/svgs/search.svg';
 
 import classes from './index.module.css';
@@ -19,12 +19,6 @@ const Queue = () => {
   });
   
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (queue.length === 0) {
-      dispatch(setInitialData(username));
-    }
-  }, [dispatch, queue.length, username]);
 
   const onPlayClick = (index) => {
     return () => {

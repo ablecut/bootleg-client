@@ -43,8 +43,7 @@ const queueSlice = createSlice({
       state.queue.splice(payload.removeIndex, 1);
       state.currentSecond = 0;
       const secondCondition = payload.removeIndex === currentQueueLength - 1 && payload.removeIndex === state.currentIndex;
-      if (payload.removeIndex < state.currentIndex || secondCondition) {
-        console.log('gere');
+      if (payload.removeIndex < state.currentIndex || (secondCondition && currentQueueLength!==1)) {
         state.currentIndex = state.currentIndex - 1;
       }
     }
