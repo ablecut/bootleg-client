@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
+import Player from './components/Player';
 import { setInitialData } from './store/modules/Queue/thunks/queueThunk';
 
 const App = (props) => {
@@ -20,6 +21,7 @@ const App = (props) => {
   return (
     <>
       {props.children}
+      <Player />
     </>
   );
 }
