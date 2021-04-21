@@ -1,6 +1,6 @@
 import { setData, addToQueue, play, setCurrentActive, removeFromQueue } from '../slices/queueSlice';
 import { get, set } from 'idb-keyval';
-import { displayErrorToast, displaySuccessToast } from '../../../../utils';
+import { displayErrorToast } from '../../../../utils';
 
 export const setInitialData = (username) => {
   return async (dispatch) => {
@@ -40,9 +40,6 @@ export const addTrackToQueue = (username, track) => {
       dispatch(addToQueue({
         track
       }));
-
-      displaySuccessToast('Added to Queue Successfully');
-
     }
     catch(e) {
       displayErrorToast('Some Error Occured');

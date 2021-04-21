@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import BlockShimmer from '../BlockShimmer';
 import playIcon from '../../assets/svgs/play.svg';
 import addIcon from '../../assets/svgs/add.svg';
+import removeIcon from '../../assets/svgs/remove.svg';
 
 import classes from './index.module.css';
 
@@ -15,9 +16,11 @@ const MediaCard = (props) => {
     thumbnail,
     title,
     duration,
+    isPresent,
 
     onPlayClick,
     onAddClick,
+    onRemoveClick,
 
     containerClass,
     thumbnailSectionClass,
@@ -56,6 +59,40 @@ const MediaCard = (props) => {
     }
   }
 
+  const onRemoveIconClick = () => {
+    if (typeof onRemoveClick === 'function') {
+      onRemoveClick();
+    }
+  }
+
+  const renderAddOrRemove = () => {
+    if (!isPresent) {
+      return (
+        <img 
+          src={addIcon} 
+          alt='addIcon'
+          title='Add to Queue' 
+
+          onClick={onAddIconClick}
+
+          className={clsx(classes.playIcon, playIconClass)} 
+        />
+      );
+    }
+
+    return (
+      <img 
+        src={removeIcon} 
+        alt='removeIcon'
+        title='Remove from Queue' 
+
+        onClick={onRemoveIconClick}
+
+        className={clsx(classes.playIcon, playIconClass)} 
+      />
+    );
+  }
+
   return (
     <div className={clsx(classes.container, containerClass)}>
       <div className={clsx(classes.thumbnailSection, thumbnailSectionClass)}>
@@ -87,15 +124,7 @@ const MediaCard = (props) => {
 
             className={clsx(classes.playIcon, playIconClass)} 
           />
-          <img 
-            src={addIcon} 
-            alt='addIcon'
-            title='Add to Queue' 
-
-            onClick={onAddIconClick}
-
-            className={clsx(classes.playIcon, playIconClass)} 
-          />
+          {renderAddOrRemove()}
         </div>
       </div>
     </div>
@@ -107,9 +136,11 @@ MediaCard.propTypes = {
   thumbnail: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   duration: PropTypes.string.isRequired,
+  isPresent: PropTypes.bool,
 
   onPlayClick: PropTypes.func,
   onAddClick: PropTypes.func,
+  onRemoveClick: PropTypes.func,
 
   containerClass: PropTypes.string,
   thumbnailSectionClass: PropTypes.string,

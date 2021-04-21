@@ -1,10 +1,10 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import MediaCard from '../../../../components/MediaCard';
 import BlockShimmer from '../../../../components/BlockShimmer';
-import { addTrackToQueue, playTrack } from '../../../../store/modules/Queue/thunks/queueThunk';
+import { addTrackToQueue, playTrack, removeTrackFromQueue } from '../../../../store/modules/Queue/thunks/queueThunk';
 import { formatDuration } from '../../../../utils';
 
 import classes from './index.module.css';
@@ -14,6 +14,10 @@ const SearchResults = (props) => {
   const { loading, searchResults, username } = props;
 
   const dispatch = useDispatch();
+
+  const { queue } = useSelector((state) => {
+    return state.queue;
+  })
 
   const onAddToQueueClick = (track) => {
     return () => {
@@ -25,6 +29,32 @@ const SearchResults = (props) => {
     return () => {
       dispatch(playTrack(username, track));
     }
+  }
+
+  const onRemoveClick = (track) => {
+    return () => {
+      let trackIndex;
+  
+      queue.forEach((item, index) => {
+        if (item.id === track.id) {
+          trackIndex = index;
+        }
+      });
+  
+      dispatch(removeTrackFromQueue(username, trackIndex));
+    }
+  }
+
+  const isItemAlreadyPresent = (track) => {
+      const filteredQueue = queue.filter((item) => {
+        if (track.id === item.id) return true;
+
+        return false;
+      });
+
+      if (filteredQueue.length) return true;
+
+      return false;
   }
 
   const renderSearchResults = () => {
@@ -46,8 +76,10 @@ const SearchResults = (props) => {
           title={item.title}
           duration={formatDuration(item.duration)}
           key={index}
+          isPresent={isItemAlreadyPresent(item)}
 
           onAddClick={onAddToQueueClick(item)}
+          onRemoveClick={onRemoveClick(item)}
           onPlayClick={onPlayClick(item)}
 
           containerClass={classes.mediaContainerClass}
