@@ -19,6 +19,10 @@ const SearchResults = (props) => {
     return state.queue;
   })
 
+  const { isTrackLoading, isPlaying } = useSelector((state) => {
+    return state.player;
+  })
+
   const onAddToQueueClick = (track) => {
     return () => {
       dispatch(addTrackToQueue(username, track));
@@ -29,6 +33,10 @@ const SearchResults = (props) => {
     return () => {
       dispatch(playTrack(username, track));
     }
+  }
+
+  const onPauseClick = () => {
+    console.log('pause clicked');
   }
 
   const onRemoveClick = (track) => {
@@ -84,10 +92,13 @@ const SearchResults = (props) => {
           key={index}
           isPresent={isItemAlreadyPresent(item)}
           isActive={isItemActive(item)}
+          isTrackLoading={isTrackLoading}
+          isPlaying={isPlaying}
 
           onAddClick={onAddToQueueClick(item)}
           onRemoveClick={onRemoveClick(item)}
           onPlayClick={onPlayClick(item)}
+          onPauseClick={onPauseClick()}
 
           containerClass={classes.mediaContainerClass}
         />

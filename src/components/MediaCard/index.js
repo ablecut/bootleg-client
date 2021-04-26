@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import { PulseLoader } from 'react-spinners';
 
 import BlockShimmer from '../BlockShimmer';
 import playIcon from '../../assets/svgs/play.svg';
 import addIcon from '../../assets/svgs/add.svg';
 import removeIcon from '../../assets/svgs/remove.svg';
+import pauseIcon from '../../assets/svgs/pause.svg';
 
 import classes from './index.module.css';
 
@@ -18,10 +20,13 @@ const MediaCard = (props) => {
     duration,
     isPresent,
     isActive,
+    isPlaying,
+    isTrackLoading,
 
     onPlayClick,
     onAddClick,
     onRemoveClick,
+    onPauseClick,
 
     containerClass,
     thumbnailSectionClass,
@@ -66,6 +71,12 @@ const MediaCard = (props) => {
     }
   }
 
+  const onPauseIconClick = () => {
+    if (typeof onPauseClick === 'function') {
+      onPauseClick();
+    }
+  }
+
   const renderAddOrRemove = () => {
     if (!isPresent) {
       return (
@@ -94,6 +105,45 @@ const MediaCard = (props) => {
     );
   }
 
+  const renderPlayOrPause = () => {
+    if (isActive && isPlaying) {
+      return (
+        <img 
+          src={pauseIcon} 
+          alt='pauseIcon'
+          title='Pause' 
+
+          onClick={onPauseIconClick}
+
+          className={clsx(classes.playIcon, playIconClass)} 
+        />
+      );
+    }
+
+    return (
+      <img 
+        src={playIcon} 
+        alt='playIcon'
+        title='Play' 
+
+        onClick={onPlayIconClick}
+
+        className={clsx(classes.playIcon, playIconClass)} 
+      />
+    );
+  }
+
+  const renderActionSection = () => {
+    if (isTrackLoading && isActive) return <PulseLoader color='#6930C3' size={5}/>;
+
+    return (
+      <div className={clsx(classes.actionSection, actionSectionClass)}>
+        {renderPlayOrPause()}
+        {renderAddOrRemove()}
+      </div>
+    );
+  }
+
   return (
     <div className={clsx({
       [classes.container]: true, 
@@ -119,18 +169,7 @@ const MediaCard = (props) => {
         <div title={duration} className={clsx(classes.duration, durationClass)}>
           {duration}
         </div>
-        <div className={clsx(classes.actionSection, actionSectionClass)}>
-          <img 
-            src={playIcon} 
-            alt='playIcon'
-            title='Play' 
-
-            onClick={onPlayIconClick}
-
-            className={clsx(classes.playIcon, playIconClass)} 
-          />
-          {renderAddOrRemove()}
-        </div>
+        {renderActionSection()}
       </div>
     </div>
   );
@@ -143,8 +182,11 @@ MediaCard.propTypes = {
   duration: PropTypes.string.isRequired,
   isPresent: PropTypes.bool,
   isActive: PropTypes.bool,
+  isTrackLoading: PropTypes.bool,
+  isPlaying: PropTypes.bool,
 
   onPlayClick: PropTypes.func,
+  onPauseClick: PropTypes.func,
   onAddClick: PropTypes.func,
   onRemoveClick: PropTypes.func,
 

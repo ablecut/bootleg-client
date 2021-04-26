@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   runningTime: 0,
-  isTrackLoading: true,
+  isTrackLoading: false,
   isPlaying: false
 }
 
