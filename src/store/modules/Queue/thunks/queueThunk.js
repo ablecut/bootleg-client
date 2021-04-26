@@ -52,6 +52,33 @@ export const playTrack = (username, track) => {
     try {
       const queueData = await get(`${username}_queueData`);
 
+      let isTrackAlreadyPresent = false;
+      let trackIndex;
+
+      queueData.queue.every((item, index) => {
+        if (item.id === track.id) {
+          isTrackAlreadyPresent = true;
+          trackIndex = index;
+          return false;
+        }
+
+        return true;
+      })
+
+      if (isTrackAlreadyPresent) {
+        await set(`${username}_queueData`, {
+          ...queueData,
+          currentIndex: trackIndex,
+          currentSecond: 0
+        });
+
+        dispatch(play({
+          track
+        }));
+
+        return;
+      }
+
       const newQueue = [...queueData.queue];
 
       newQueue.splice(queueData.currentIndex + 1, 0, track);

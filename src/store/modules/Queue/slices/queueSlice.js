@@ -18,6 +18,21 @@ const queueSlice = createSlice({
     play: (state, action) => {
       const { payload } = action;
 
+      let isTrackAlreadyPresent = false;
+
+      state.queue.every((item, index) => {
+        if (item.id === payload.track.id) {
+          isTrackAlreadyPresent = true;
+          state.currentIndex = index;
+          state.currentSecond = 0;
+          return false;
+        }
+
+        return true;
+      })
+
+      if (isTrackAlreadyPresent) return;
+
       const newIndex = state.queue.length === 0 ? 0 : state.currentIndex + 1;
       state.queue.splice(state.currentIndex + 1, 0, payload.track);
       state.currentIndex = newIndex;

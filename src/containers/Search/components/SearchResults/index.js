@@ -98,7 +98,7 @@ const SearchResults = (props) => {
           onAddClick={onAddToQueueClick(item)}
           onRemoveClick={onRemoveClick(item)}
           onPlayClick={onPlayClick(item)}
-          onPauseClick={onPauseClick()}
+          onPauseClick={onPauseClick}
 
           containerClass={classes.mediaContainerClass}
         />
