@@ -5,6 +5,11 @@
   display: flex;
 }
 
+.active {
+  color: var(--primary-purple);
+  transform: scale(1.05);
+}
+
 .blockClass {
   background: var(--disabled-grey);
   border-radius: 8px 0px 0px 8px;

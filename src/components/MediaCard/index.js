@@ -17,6 +17,7 @@ const MediaCard = (props) => {
     title,
     duration,
     isPresent,
+    isActive,
 
     onPlayClick,
     onAddClick,
@@ -94,7 +95,11 @@ const MediaCard = (props) => {
   }
 
   return (
-    <div className={clsx(classes.container, containerClass)}>
+    <div className={clsx({
+      [classes.container]: true, 
+      [containerClass]: true,
+      [classes.active]: isActive
+    })}>
       <div className={clsx(classes.thumbnailSection, thumbnailSectionClass)}>
         <div style={hideShimmer()}>
           <BlockShimmer blockClass={clsx(classes.blockClass, shimmerBlockClass)}/>
@@ -137,6 +142,7 @@ MediaCard.propTypes = {
   title: PropTypes.string.isRequired,
   duration: PropTypes.string.isRequired,
   isPresent: PropTypes.bool,
+  isActive: PropTypes.bool,
 
   onPlayClick: PropTypes.func,
   onAddClick: PropTypes.func,

@@ -15,7 +15,7 @@ const SearchResults = (props) => {
 
   const dispatch = useDispatch();
 
-  const { queue } = useSelector((state) => {
+  const { queue, currentIndex } = useSelector((state) => {
     return state.queue;
   })
 
@@ -46,15 +46,21 @@ const SearchResults = (props) => {
   }
 
   const isItemAlreadyPresent = (track) => {
-      const filteredQueue = queue.filter((item) => {
-        if (track.id === item.id) return true;
-
-        return false;
-      });
-
-      if (filteredQueue.length) return true;
+    const filteredQueue = queue.filter((item) => {
+      if (track.id === item.id) return true;
 
       return false;
+    });
+
+    if (filteredQueue.length) return true;
+
+    return false;
+  }
+
+  const isItemActive = (track) => {
+    if (track.id === queue[currentIndex]?.id) return true;
+
+    return false;
   }
 
   const renderSearchResults = () => {
@@ -77,6 +83,7 @@ const SearchResults = (props) => {
           duration={formatDuration(item.duration)}
           key={index}
           isPresent={isItemAlreadyPresent(item)}
+          isActive={isItemActive(item)}
 
           onAddClick={onAddToQueueClick(item)}
           onRemoveClick={onRemoveClick(item)}
