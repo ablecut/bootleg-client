@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import MediaCard from '../../../../components/MediaCard';
 import BlockShimmer from '../../../../components/BlockShimmer';
 import { addTrackToQueue, playTrack, removeTrackFromQueue } from '../../../../store/modules/Queue/thunks/queueThunk';
-import { formatDuration } from '../../../../utils';
+import { setIsPlaying } from '../../../../store/modules/Player/slices/playerSlice';
+import { formatDuration, fetchTrackData } from '../../../../utils';
+import PlayerContext from '../../../../contexts/PlayerContext';
 
 import classes from './index.module.css';
 
@@ -14,6 +16,8 @@ const SearchResults = (props) => {
   const { loading, searchResults, username } = props;
 
   const dispatch = useDispatch();
+
+  const { playerRef } = useContext(PlayerContext);
 
   const { queue, currentIndex } = useSelector((state) => {
     return state.queue;
@@ -30,13 +34,43 @@ const SearchResults = (props) => {
   }
 
   const onPlayClick = (track) => {
-    return () => {
-      dispatch(playTrack(username, track));
+    return async () => {
+      dispatch(setIsPlaying({
+        isPlaying: false
+      }))
+      playerRef.current.pause();
+
+      if (playerRef.current.getAttribute('data-id') === track.id) {
+        playerRef.current.play();
+
+        dispatch(setIsPlaying({
+          isPlaying: true
+        }));
+
+        return;
+      }
+
+      playerRef.current.setAttribute('data-id', track.id);
+
+      await dispatch(playTrack(username, track));
+      const uri = await fetchTrackData(track.url, dispatch, playerRef);
+
+      playerRef.current.src = uri;
+      playerRef.current.load();
+      playerRef.current.play();
+
+      dispatch(setIsPlaying({
+        isPlaying: true
+      }));
     }
   }
 
   const onPauseClick = () => {
-    console.log('pause clicked');
+    playerRef.current.pause();
+    
+    dispatch(setIsPlaying({
+      isPlaying: false
+    }));
   }
 
   const onRemoveClick = (track) => {

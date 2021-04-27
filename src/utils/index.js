@@ -1,4 +1,6 @@
 import { toast } from 'react-toastify';
+import Cookies from 'js-cookie';
+import { setIsTrackLoading } from '../store/modules/Player/slices/playerSlice';
 
 export const displayErrorToast = (errorMessage) => {
   toast.error(errorMessage);
@@ -22,4 +24,63 @@ export const formatDuration = (duration) => {
   }
 
   return hours;
+}
+
+export const fetchTrackData = async (url, dispatch, playerRef) => {
+  try {
+    dispatch(setIsTrackLoading({
+      isTrackLoading: true
+    }));
+
+    const response = await fetch('/play', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authentication': Cookies.get('Authentication')
+      },
+      body: JSON.stringify({
+        url
+      })
+    });
+  
+    const reader = await response.body.getReader();
+  
+    const stream = await new ReadableStream({
+      start: (controller) => {
+        const pump = async () => {
+          const { done, value } = await reader.read();
+          
+          if (done) {
+            controller.close();
+            return;
+          }
+          
+          controller.enqueue(value);
+          pump();
+        }
+        pump();
+      }
+    });
+  
+    const resp = await new Response(stream);
+  
+    const blob = await resp.blob();
+  
+    const uri = await URL.createObjectURL(blob);
+
+    dispatch(setIsTrackLoading({
+      isTrackLoading: false
+    }));
+    
+    return uri;
+  
+  }
+  catch (e) {
+    console.log(e);
+    dispatch(setIsTrackLoading({
+      isTrackLoading: false
+    }));
+    playerRef.current.setAttribute('data-id', null);
+  }
+  
 }

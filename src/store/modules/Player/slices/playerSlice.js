@@ -8,7 +8,20 @@ const initialState = {
 
 const playerSlice = createSlice({
   name: 'player',
-  initialState
+  initialState,
+  reducers: {
+    setIsTrackLoading: (state, action) => {
+      state.isTrackLoading = action.payload.isTrackLoading;
+    },
+    setIsPlaying: (state, action) => {
+      state.isPlaying = action.payload.isPlaying;
+    }
+  }
 });
+
+export const {
+  setIsTrackLoading,
+  setIsPlaying
+} = playerSlice.actions;
 
 export default playerSlice.reducer;
