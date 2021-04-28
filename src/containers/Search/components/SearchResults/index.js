@@ -75,6 +75,18 @@ const SearchResults = (props) => {
 
   const onRemoveClick = (track) => {
     return () => {
+
+      if (track.id === queue[currentIndex].id) {
+        playerRef.current.pause();
+
+        dispatch(setIsPlaying({
+          isPlaying: false
+        }));
+        
+        playerRef.current.src = null;
+        playerRef.current.setAttribute('data-id', null);
+      }
+
       let trackIndex;
   
       queue.forEach((item, index) => {
