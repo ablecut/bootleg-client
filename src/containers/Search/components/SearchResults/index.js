@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import randomstring from 'randomstring';
 
 import MediaCard from '../../../../components/MediaCard';
 import BlockShimmer from '../../../../components/BlockShimmer';
@@ -50,10 +51,16 @@ const SearchResults = (props) => {
         return;
       }
 
+      const key = randomstring.generate({
+        length: 6
+      });
+
       playerRef.current.setAttribute('data-id', track.id);
+      playerRef.current.setAttribute('key', key);
+      
 
       await dispatch(playTrack(username, track));
-      const uri = await fetchTrackData(track.url, dispatch, playerRef);
+      const uri = await fetchTrackData(track.url, dispatch, playerRef, key);
 
       playerRef.current.src = uri;
       playerRef.current.load();

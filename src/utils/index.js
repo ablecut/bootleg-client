@@ -26,7 +26,7 @@ export const formatDuration = (duration) => {
   return hours;
 }
 
-export const fetchTrackData = async (url, dispatch, playerRef) => {
+export const fetchTrackData = async (url, dispatch, playerRef, key) => {
   try {
     dispatch(setIsTrackLoading({
       isTrackLoading: true
@@ -42,6 +42,10 @@ export const fetchTrackData = async (url, dispatch, playerRef) => {
         url
       })
     });
+
+    if (key !== playerRef.current.getAttribute('key')) {
+      throw new Error('Aborted');
+    }
   
     const reader = await response.body.getReader();
   
@@ -76,10 +80,14 @@ export const fetchTrackData = async (url, dispatch, playerRef) => {
   
   }
   catch (e) {
-    console.log(e);
+    if (e.message === 'Aborted') {
+      return;
+    }
+
     dispatch(setIsTrackLoading({
       isTrackLoading: false
     }));
+
     playerRef.current.setAttribute('data-id', null);
   }
   
